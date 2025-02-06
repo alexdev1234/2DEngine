@@ -15,6 +15,8 @@ public:
 	Engine();
 	~Engine();
 
+	void RegisterSystems();
+
 	void Initialize();
 	void Update();
 	void Shutdown();

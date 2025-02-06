@@ -15,6 +15,7 @@ public:
 
 	void Initialize() override;
 	void Update(float dt) override;
+	void Render() override {};
 	void Shutdown() override;
 
 	bool ShouldClose();
@@ -26,7 +27,7 @@ private:
 
 	GLFWwindow* m_pWindow;
 	std::string m_sWindowName;
-	int m_fWidth;
-	int m_fHeight;
+	int m_nWidth;
+	int m_nHeight;
 };
 

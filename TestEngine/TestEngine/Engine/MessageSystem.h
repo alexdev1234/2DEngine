@@ -12,6 +12,7 @@ public:
 	virtual void Process() = 0;
 };
 
+// special system that allows various systems to communicate with one another
 class MessageSystem
 {
 public:

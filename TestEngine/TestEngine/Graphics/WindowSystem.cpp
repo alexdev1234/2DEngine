@@ -2,8 +2,8 @@
 #include <iostream>
 
 WindowSystem::WindowSystem(int width, int height, const std::string& windowName) :
-	m_fWidth(width),
-	m_fHeight(height),
+	m_nWidth(width),
+	m_nHeight(height),
 	m_sWindowName(windowName),
 	m_pWindow(nullptr)
 {
@@ -18,7 +18,7 @@ void WindowSystem::Initialize()
 {
 	if (!glfwInit())
 	{
-		std::cerr << "Failed to initialize GLFW\n";
+		std::cerr << "Failed to initialize GLFW" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
@@ -27,32 +27,59 @@ void WindowSystem::Initialize()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	m_pWindow = glfwCreateWindow(m_fWidth, m_fHeight, m_sWindowName.c_str(), nullptr, nullptr);
+	// Get primary monitor
+	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+	if (!monitor)
+	{
+		std::cerr << "Failed to get primary monitor" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
+	// Get current resolution of primary monitor
+	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+	if (!mode)
+	{
+		std::cerr << "Failed to get video mode" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
+	m_nWidth = mode->width;
+	m_nHeight = mode->height;
+
+	m_pWindow = glfwCreateWindow(m_nWidth, m_nHeight, m_sWindowName.c_str(), nullptr, nullptr);
 	if (!m_pWindow)
 	{
-		std::cerr << "Failed to create GLFW window\n";
+		std::cerr << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
 
 	// Set current context
 	glfwMakeContextCurrent(m_pWindow);
+	//glfwSwapInterval(1); // enable v-sync --> not necessary right now
 
 	// Load glfw function pointers using glad
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cerr << "Failed to initialize GLAD\n";
+		std::cerr << "Failed to initialize GLAD" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
 	// Set viewport and callback
-	glViewport(0, 0, m_fWidth, m_fHeight);
+	glViewport(0, 0, m_nWidth, m_nHeight);
 	glfwSetFramebufferSizeCallback(m_pWindow, FramebufferSizeCallback);
 }
 
 void WindowSystem::Update(float dt)
 {
+	// TODO: utilize message system to tell engine to close window if need be
+	//if (glfwWindowShouldClose)
+	//{
+	//	// Send close message to engine
+	//}
+
 	// Process any window events
+	glfwSwapBuffers(m_pWindow);
 	glfwPollEvents();
 }
 

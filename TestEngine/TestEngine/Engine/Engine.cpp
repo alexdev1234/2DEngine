@@ -1,6 +1,7 @@
 // includes
 #include "Engine.h"
 #include "System.h"
+#include "Graphics.h"
 
 Engine::Engine() :
 	dt(0.0f)
@@ -14,8 +15,33 @@ Engine::~Engine()
 	Shutdown();
 }
 
+void Engine::RegisterSystems()
+{
+	/*
+	* All systems should be created and registered here.
+	* This helps consolidate the amount of files that systems are touching.
+	*/
+
+	// Window system
+	m_windowSystem = std::make_shared<WindowSystem>(800, 600, "2D Engine");
+	m_pSystems.push_back(m_windowSystem);
+
+	// Graphics system
+	std::shared_ptr<Graphics> graphicsSystem = std::make_shared<Graphics>();
+	m_pSystems.push_back(graphicsSystem);
+
+	// IMGUI system
+
+	// Physics System
+
+	// Animation System
+}
+
 void Engine::Initialize()
 {
+	// Create and register systems
+	RegisterSystems();
+
 	// Initialize all systems
 	for (auto& system : m_pSystems)
 	{
@@ -44,13 +70,15 @@ void Engine::Update()
 		// Process messages prior to updating systems
 		m_messageSystem.ProcessMessages();
 
-		// Update systems
+		// Render/Update systems
 		for (auto& system : m_pSystems)
 		{
 			system->Update(dt);
+			system->Render();
 		}
 
 		// Break this loop if the window should be closed
+		// TODO: Change this to use the messaging system. All things should be handled via messaging system
 		if (m_windowSystem && m_windowSystem->ShouldClose())
 		{
 			bIsRunning = false;

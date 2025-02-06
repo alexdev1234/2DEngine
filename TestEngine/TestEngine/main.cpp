@@ -1,19 +1,21 @@
 // includes
 #include <iostream>
-#include "Graphics/WindowSystem.h"
+
+// system includes
+#include "Engine.h"
+#include "WindowSystem.h"
+
 
 int main()
 {
-	// Create the window
-	std::cout << "Creating window" << std::endl;
-	WindowSystem window(800, 600, "2D Engine");
+	Engine engine;
 
-	while (!window.ShouldClose())
-	{
-		window.SetClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-		window.Update();
-	}
+	// Create and register systems
+	auto windowSystem = std::make_shared<WindowSystem>(800, 600, "2D Engine");
+	engine.RegisterSystem(windowSystem);
 
-	std::cout << "Exiting application..." << std::endl;
-	return 0;
+	// Initialize and run the engine
+	engine.Initialize();
+	engine.Update();
+	engine.Shutdown();
 }

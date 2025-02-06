@@ -3,7 +3,18 @@
 
 WindowSystem::WindowSystem(int width, int height, const std::string& windowName) :
 	m_fWidth(width),
-	m_fHeight(height)
+	m_fHeight(height),
+	m_sWindowName(windowName),
+	m_pWindow(nullptr)
+{
+}
+
+WindowSystem::~WindowSystem()
+{
+	Shutdown();
+}
+
+void WindowSystem::Initialize()
 {
 	if (!glfwInit())
 	{
@@ -16,7 +27,7 @@ WindowSystem::WindowSystem(int width, int height, const std::string& windowName)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	m_pWindow = glfwCreateWindow(m_fWidth, m_fHeight, windowName.c_str(), nullptr, nullptr);
+	m_pWindow = glfwCreateWindow(m_fWidth, m_fHeight, m_sWindowName.c_str(), nullptr, nullptr);
 	if (!m_pWindow)
 	{
 		std::cerr << "Failed to create GLFW window\n";
@@ -39,11 +50,26 @@ WindowSystem::WindowSystem(int width, int height, const std::string& windowName)
 	glfwSetFramebufferSizeCallback(m_pWindow, FramebufferSizeCallback);
 }
 
-WindowSystem::~WindowSystem()
+void WindowSystem::Update(float dt)
 {
-	// Terminate glfw processes
-	glfwDestroyWindow(m_pWindow);
+	// Process any window events
+	glfwPollEvents();
+}
+
+void WindowSystem::Shutdown()
+{
+	if (m_pWindow)
+	{
+		glfwDestroyWindow(m_pWindow);
+		std::cout << "Window destroyed" << std::endl;
+	}
+
 	glfwTerminate();
+}
+
+bool WindowSystem::ShouldClose()
+{
+	return glfwWindowShouldClose(m_pWindow);
 }
 
 void WindowSystem::FramebufferSizeCallback(GLFWwindow* window, int width, int height)
@@ -51,19 +77,4 @@ void WindowSystem::FramebufferSizeCallback(GLFWwindow* window, int width, int he
 	glViewport(0, 0, width, height);
 }
 
-void WindowSystem::Update()
-{
-	glfwSwapBuffers(m_pWindow);
-	glfwPollEvents();
-}
 
-bool WindowSystem::ShouldClose() const
-{
-	return glfwWindowShouldClose(m_pWindow);
-}
-
-void WindowSystem::SetClearColor(float r, float g, float b, float a)
-{
-	glClearColor(r, g, b, a);
-	glClear(GL_COLOR_BUFFER_BIT);
-}

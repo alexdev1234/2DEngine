@@ -15,10 +15,10 @@ public:
 
 	void Initialize() override;
 	void Update(float dt) override;
-	void Render() override {};
+	void Render() override {}
 	void Shutdown() override;
 
-	bool ShouldClose();
+	bool ShouldClose() const;
 
 	inline GLFWwindow* GetWindow() const { return m_pWindow; };
 

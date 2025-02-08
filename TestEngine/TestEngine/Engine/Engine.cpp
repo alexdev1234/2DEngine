@@ -27,8 +27,8 @@ void Engine::RegisterSystems()
 	m_pSystems.push_back(m_windowSystem);
 
 	// Graphics system
-	std::shared_ptr<Graphics> graphicsSystem = std::make_shared<Graphics>();
-	m_pSystems.push_back(graphicsSystem);
+	//std::shared_ptr<Graphics> graphicsSystem = std::make_shared<Graphics>();
+	//m_pSystems.push_back(graphicsSystem);
 
 	// IMGUI system
 

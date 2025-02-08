@@ -1,4 +1,6 @@
 #include "WindowSystem.h"
+
+#include <cassert>
 #include <iostream>
 
 WindowSystem::WindowSystem(int width, int height, const std::string& windowName) :
@@ -11,15 +13,14 @@ WindowSystem::WindowSystem(int width, int height, const std::string& windowName)
 
 WindowSystem::~WindowSystem()
 {
-	Shutdown();
 }
 
 void WindowSystem::Initialize()
 {
 	if (!glfwInit())
 	{
-		std::cerr << "Failed to initialize GLFW" << std::endl;
-		exit(EXIT_FAILURE);
+		std::cerr << "Failed to initialize GLFW\n";
+		assert(true);
 	}
 
 	// Using opengl version 3.3 
@@ -31,16 +32,16 @@ void WindowSystem::Initialize()
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	if (!monitor)
 	{
-		std::cerr << "Failed to get primary monitor" << std::endl;
-		exit(EXIT_FAILURE);
+		std::cerr << "Failed to get primary monitor\n";
+		assert(true);
 	}
 
 	// Get current resolution of primary monitor
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 	if (!mode)
 	{
-		std::cerr << "Failed to get video mode" << std::endl;
-		exit(EXIT_FAILURE);
+		std::cerr << "Failed to get video mode\n";
+		assert(true);
 	}
 
 	m_nWidth = mode->width;
@@ -49,9 +50,9 @@ void WindowSystem::Initialize()
 	m_pWindow = glfwCreateWindow(m_nWidth, m_nHeight, m_sWindowName.c_str(), nullptr, nullptr);
 	if (!m_pWindow)
 	{
-		std::cerr << "Failed to create GLFW window" << std::endl;
+		std::cerr << "Failed to create GLFW window\n";
 		glfwTerminate();
-		exit(EXIT_FAILURE);
+		assert(true);
 	}
 
 	// Set current context
@@ -61,8 +62,8 @@ void WindowSystem::Initialize()
 	// Load glfw function pointers using glad
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cerr << "Failed to initialize GLAD" << std::endl;
-		exit(EXIT_FAILURE);
+		std::cerr << "Failed to initialize GLAD\n";
+		assert(true);
 	}
 
 	// Set viewport and callback
@@ -88,13 +89,13 @@ void WindowSystem::Shutdown()
 	if (m_pWindow)
 	{
 		glfwDestroyWindow(m_pWindow);
-		std::cout << "Window destroyed" << std::endl;
+		std::cout << "Window destroyed\n";
 	}
 
 	glfwTerminate();
 }
 
-bool WindowSystem::ShouldClose()
+bool WindowSystem::ShouldClose() const
 {
 	return glfwWindowShouldClose(m_pWindow);
 }

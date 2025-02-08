@@ -31,3 +31,15 @@
 *.exe
 *.out
 *.app
+TestEngine/TestEngine/x64/Debug/TestEngine.ilk
+TestEngine/TestEngine/x64/Debug/TestEngine.log
+TestEngine/TestEngine/x64/Debug/TestEngine.tlog/CL.command.1.tlog
+TestEngine/TestEngine/x64/Debug/TestEngine.tlog/Cl.items.tlog
+TestEngine/TestEngine/x64/Debug/TestEngine.tlog/CL.read.1.tlog
+TestEngine/TestEngine/x64/Debug/TestEngine.tlog/CL.write.1.tlog
+TestEngine/TestEngine/x64/Debug/TestEngine.tlog/link.command.1.tlog
+TestEngine/TestEngine/x64/Debug/TestEngine.tlog/link.read.1.tlog
+TestEngine/TestEngine/x64/Debug/TestEngine.tlog/link.write.1.tlog
+TestEngine/TestEngine/x64/Debug/vc143.idb
+TestEngine/TestEngine/x64/Debug/vc143.pdb
+TestEngine/x64/Debug/TestEngine.pdb

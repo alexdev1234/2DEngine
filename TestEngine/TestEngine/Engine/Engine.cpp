@@ -1,7 +1,7 @@
 // includes
 #include "Engine.h"
 #include "System.h"
-#include "Graphics.h"
+#include "Rendering/RenderSystem.h"
 
 Engine::Engine() :
 	dt(0.0f)
@@ -26,9 +26,9 @@ void Engine::RegisterSystems()
 	m_windowSystem = std::make_shared<WindowSystem>(800, 600, "2D Engine");
 	m_pSystems.push_back(m_windowSystem);
 
-	// Graphics system
-	//std::shared_ptr<Graphics> graphicsSystem = std::make_shared<Graphics>();
-	//m_pSystems.push_back(graphicsSystem);
+	// Render system
+	std::shared_ptr<RenderSystem> renderingSystem = std::make_shared<RenderSystem>();
+	m_pSystems.push_back(renderingSystem);
 
 	// IMGUI system
 

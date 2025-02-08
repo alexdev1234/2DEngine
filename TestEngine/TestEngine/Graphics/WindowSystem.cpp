@@ -20,7 +20,7 @@ void WindowSystem::Initialize()
 	if (!glfwInit())
 	{
 		std::cerr << "Failed to initialize GLFW\n";
-		assert(true);
+		throw std::runtime_error("Failed to initialize GLFW");
 	}
 
 	// Using opengl version 3.3 
@@ -33,7 +33,7 @@ void WindowSystem::Initialize()
 	if (!monitor)
 	{
 		std::cerr << "Failed to get primary monitor\n";
-		assert(true);
+		throw std::runtime_error("Failed to get primary monitor");
 	}
 
 	// Get current resolution of primary monitor
@@ -52,7 +52,7 @@ void WindowSystem::Initialize()
 	{
 		std::cerr << "Failed to create GLFW window\n";
 		glfwTerminate();
-		assert(true);
+		throw std::runtime_error("Failed to create GLFW window");
 	}
 
 	// Set current context
@@ -63,7 +63,7 @@ void WindowSystem::Initialize()
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cerr << "Failed to initialize GLAD\n";
-		assert(true);
+		throw std::runtime_error("Failed to initialize GLAD");
 	}
 
 	// Set viewport and callback

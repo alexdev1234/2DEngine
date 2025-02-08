@@ -1,7 +1,8 @@
 #version 130
-uniform vec4 color;
+in vec4 Color;  // Get the color from vertex shader
 out vec4 frag_color;
+
 void main(void) 
 {
-	frag_color = color;
+    frag_color = Color; // Use vertex color instead of uniform
 }

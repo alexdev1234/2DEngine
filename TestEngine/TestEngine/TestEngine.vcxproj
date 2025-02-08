@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)TestEngine/Engine;$(SolutionDir)TestEngine/Graphics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TestEngine/Engine;$(SolutionDir)TestEngine/Graphics;$(SolutionDir)TestEngine/Entities;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,7 +138,7 @@
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Engine\MessageSystem.cpp" />
     <ClCompile Include="Engine\System.cpp" />
-    <ClCompile Include="Graphics\Graphics.cpp" />
+    <ClCompile Include="Graphics\Rendering\RenderSystem.cpp" />
     <ClCompile Include="Graphics\WindowSystem.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -146,7 +146,7 @@
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\MessageSystem.h" />
     <ClInclude Include="Engine\System.h" />
-    <ClInclude Include="Graphics\Graphics.h" />
+    <ClInclude Include="Graphics\Rendering\RenderSystem.h" />
     <ClInclude Include="Graphics\WindowSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
